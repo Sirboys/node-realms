@@ -1,0 +1,12 @@
+module.exports.Templates = {
+     ADVENTURES: "ADVENTUREMAP",
+     WORLD_TEMPLATES: "NORMAL",
+     MINIGAMES: "MINIGAME",
+     EXPERIENCES: "EXPERIENCE",
+     INSPIRATION: "INSPIRATION"
+}
+module.exports.Status = {
+     CLOSED: "CLOSED",
+     OPEN: "OPEN",
+     UNINITIALIZED: "UNINITIALIZED"
+}
