@@ -2,9 +2,12 @@ const Client = require('../Client/Methods');
 const PlayerInfo = require("./PlayerInfo");
 const ValueObject = require("./ValueObject");
 const RealmsWorldOptions = require("./RealmsWorldOptions");
-const PlayerList = require("./PlayerList");
-const Ops = require("./Ops");
 const RealmsDescriptionDto = require("./RealmsDescriptionDto");
+const RealmsServerAddress = require("./RealmsServerAddress");
+const WorldDownload = require("./WorldDownload");
+const UploadInfo = require("./UploadInfo");
+const BackupList = require("./BackupList");
+const RealmsWorldResetDto = require("./RealmsWorldResetDto");
 
 class RealmsServer extends ValueObject{
     /**
@@ -25,7 +28,7 @@ class RealmsServer extends ValueObject{
             this.remoteSubscriptionId = parsedJSON.remoteSubscriptionId;
             this.owner = parsedJSON.owner;
             this.ownerUUID = parsedJSON.ownerUUID;
-            this.realmsdescriptiondto = new RealmsDescriptionDto(parsedJSON.name,parsedJSON.motd,this);
+            this.properties = new RealmsDescriptionDto(parsedJSON.name,parsedJSON.motd,this);
             this.defaultPermission = parsedJSON.defaultPermission;
             this.state = parsedJSON.state;
             this.daysLeft = parsedJSON.daysLeft;
@@ -48,7 +51,7 @@ class RealmsServer extends ValueObject{
             this.minigameImage = parsedJSON.minigameImage;
             this.activeSlot = parsedJSON.activeSlot;
             /**
-             * @type {Map<number,RealmsWorldOptions>}
+             * @type {Map<Number,RealmsWorldOptions>}
              */
             this.slots = parsedJSON.slots;
             if (parsedJSON.slots){
@@ -68,8 +71,10 @@ class RealmsServer extends ValueObject{
         this.players.sort(function(a, b){
             if (a.accepted != b.accepted){
                 return Number(b.accepted) - Number(a.accepted);
+            }else if (a.name.toLowerCase().charCodeAt(0) != b.name.toLowerCase().charCodeAt(0)){
+                return a.name.toLowerCase().charCodeAt(0) - b.name.toLowerCase().charCodeAt(0);
             }else{
-                return a.name.charCodeAt(0) - b.name.charCodeAt(0);
+                return a.name.toLowerCase().charCodeAt(1) - b.name.toLowerCase().charCodeAt(1);
             }
         });
         return this;
@@ -85,6 +90,72 @@ class RealmsServer extends ValueObject{
     }
     getPlayerByName(name){
         return this.players.find(playerInfo => playerInfo.name.toLowerCase() == name.toLowerCase());
+    }
+    /**
+     * @returns {RealmsServerAddress}
+     */
+    get joinCreditails(){
+            return new RealmsServerAddress(this.client.joinToWorld(this.id));
+    }
+    /**
+     * 
+     * @param {number} slot 
+     */
+    changeSlot(slot){
+        if (slot == this.activeSlot){
+            console.error("Slot is already set");
+        }else{
+            this.client.setSlot(this.id,slot);
+            return this.detailInformation();
+        }
+    }
+    /**
+     * @returns {Boolean}
+     */
+    open(){
+        return this.client.openRealm(this.id);
+    }
+    /**
+     * @returns {Boolean}
+     */
+    close(){
+        return this.client.closeRealm(this.id);
+    }
+    download(slot){
+        return new WorldDownload(this.client.download(this.id,slot));
+    }
+    downloadActiveSlot(){
+        return this.download(this.activeSlot);
+    }
+    /**
+     * @returns {UploadInfo}
+     */
+    upload(){
+        return new UploadInfo(this.client.uploadInfo(this.id));
+    }
+    /**
+     * 
+     * @param {Number|String} minigameId 
+     * @returns {Boolean}
+     */
+    setMinigame(minigameId){
+        return this.client.setMinigame(this.id,minigameId);
+    }
+    backups(){
+        return new BackupList(this.client.backups(this.id),this)
+    }
+    /**
+     * 
+     * @param {Number} id 
+     * @returns {Boolean}
+     */
+    setTemplate(id){
+        let realmsworldresetdto = new RealmsWorldResetDto(null, id, -1, false)
+        return this.client.resetWorld(this.id,realmsworldresetdto);
+    }
+    createNewWorld(seed,levelType,generateStructures){
+        let realmsworldresetdto = new RealmsWorldResetDto(seed, -1, levelType, generateStructures);
+        return this.client.resetWorld(this.id,realmsworldresetdto);
     }
 }
 module.exports = RealmsServer;

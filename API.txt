@@ -1,0 +1,66 @@
+https://pc.realms.minecraft.net/worlds
+https://pc.realms.minecraft.net/worlds/$ID
+https://pc.realms.minecraft.net/activities/$WORLD_ID
+https://pc.realms.minecraft.net/activities/liveplayerlist
+https://pc.realms.minecraft.net/worlds/v1/$ID/join/pc
+https://pc.realms.minecraft.net/worlds/$WORLD_ID/initialize
+https://pc.realms.minecraft.net/mco/available
+https://pc.realms.minecraft.net/mco/stageAvailable
+https://pc.realms.minecraft.net/mco/client/compatible
+https://pc.realms.minecraft.net/invites/$WORLD_ID/invite/$UUID
+https://pc.realms.minecraft.net/invites/$WORLD_ID
+https://pc.realms.minecraft.net/invites/$WORLD_ID
+https://pc.realms.minecraft.net/worlds/$WORLD_ID/backups
+https://pc.realms.minecraft.net/worlds/$WORLD_ID
+https://pc.realms.minecraft.net/worlds/$WORLD_ID/slot/$SLOT_ID
+https://pc.realms.minecraft.net/worlds/$WORLD_ID/slot/$SLOT_ID
+https://pc.realms.minecraft.net/worlds/$WORLD_ID/backups
+https://pc.realms.minecraft.net/worlds/templates/$WORLD_TYPE
+https://pc.realms.minecraft.net/
+https://pc.realms.minecraft.net/
+https://pc.realms.minecraft.net/
+https://pc.realms.minecraft.net/
+
+
+
+7507429
+
+
+sid=token:047323a4d1fb40bb9f1820e0bfc9e6dc:63a91ed9a480454696d8e000678f61e2;user=Sirboys;version=1.14.4
+sid=token:047323a4d1fb40bb9f1820e0bfc9e6dc:63a91ed9a480454696d8e000678f61e2;user=Sirboys;version=1.14.4
+
+
+
+
+//INVITE USER
+POST https://pc.realms.minecraft.net/invites/7507429 <- World ID
+
+{
+	"name":"AzerusS",
+	"uuid":"4f99c39e269743699ac6e7a13c392559",
+	"operator":false,
+	"accepted":false,
+	"online":false
+}
+
+
+POST https://pc.realms.minecraft.net/worlds/7507429 <- World ID
+
+{
+	"name": "Azerus Team",
+	"description": "<-- Sirboys' face"
+}
+
+
+			
+
+
+
+
+
+
+
+
+
+
+

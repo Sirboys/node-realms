@@ -6,19 +6,19 @@ class ValueObject{
     toString(){
         var jsonClass = {};
         for (let field in this){
+            //Ignoreable fields for JSON
+            if (field == "world") continue;
+            if (field == "client") continue;
             jsonClass[field] = this[field]
         }
         return JSON.stringify(jsonClass)
     }
     /**
+     * @override
      * @returns {JSON} JSON object
      */
     toJSON(){
-        var jsonClass = {};
-        for (let field in this){
-            jsonClass[field] = this[field]
-        }
-        return jsonClass
+        return JSON.parse(this.toString());
     }
 }
 module.exports = ValueObject;

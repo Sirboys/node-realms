@@ -16,7 +16,6 @@ class Request{
         this.endpoint = "https://pc.realms.minecraft.net"
     }
     get cookieHeader(){
-        
         return `sid=token:${this.token}:${this.uuid};user=${this.username};version=${this.version}`
     }
     get(url){
@@ -26,16 +25,14 @@ class Request{
             request.open("GET",this.endpoint+url,false)
             request.setDisableHeaderCheck(true);
             request.setRequestHeader("Cookie",this.cookieHeader);
-            
             request.send(null);
-            //console.log(request.getAllResponseHeaders());
             if (request.status == 401){
-                console.error("Could not autorize you against to Realms: "+request.getResponseHeader("WWW-Authenticate"));
-                return;
+                throw new Error("Could not autorize you against to Realms: " + request.getResponseHeader("WWW-Authenticate"));
+                //return;
             }
             return request.responseText
         }catch(e){
-            throw e
+            throw e;
         }
     }
     post(url,payload){
@@ -47,12 +44,11 @@ class Request{
             request.setRequestHeader("Content-Type","application/json");
             request.send(payload);
             if (request.status == 401){
-                console.error("Could not autorize you agains to Realms: "+request.getResponseHeader("WWW-Authenticate"));
-                return;
+                throw new Error("Could not autorize you agains to Realms: " + request.getResponseHeader("WWW-Authenticate"));
             }
             return request.responseText
         }catch(e){
-            throw e
+            throw e;
         }
     }
     put(url){
@@ -63,12 +59,11 @@ class Request{
             request.setRequestHeader("Cookie",this.cookieHeader);
             request.send(null);
             if (request.status == 401){
-                console.error("Could not autorize you agains to Realms: "+request.getResponseHeader("WWW-Authenticate"));
-                return;
+                throw new Error("Could not autorize you agains to Realms: " + request.getResponseHeader("WWW-Authenticate"));
             }
             return request.responseText
         }catch(e){
-            throw e
+            throw e;
         }
     }
     delete(url){
@@ -79,12 +74,11 @@ class Request{
             request.setRequestHeader("Cookie",this.cookieHeader);
             request.send(null);
             if (request.status == 401){
-                console.error("Could not autorize you agains to Realms: "+request.getResponseHeader("WWW-Authenticate"));
-                return;
+                throw new Error("Could not autorize you agains to Realms: " + request.getResponseHeader("WWW-Authenticate"));
             }
             return request.responseText
         }catch(e){
-            throw e
+            throw e;
         }
     }
 }

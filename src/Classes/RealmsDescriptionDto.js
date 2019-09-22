@@ -19,11 +19,19 @@ class RealmsDescriptionDto extends ValueObject{
     }
     setName(name){
         this.name = name;
-        return this.world.client.setDesctiption(this);
+        this.world.client.setDesctiption(this)
+        return this.world;
     }
     setDescription(description){
         this.description = description;
-        return this.world.client.setDesctiption(this);
+        this.world.client.setDesctiption(this)
+        return this.world;
+    }
+    setProperties(name,description){
+        this.name = name;
+        this.description = description;
+        this.world.client.setDesctiption(this)
+        return this.world;
     }
 }
 module.exports = RealmsDescriptionDto;

@@ -1,8 +1,8 @@
 const RealmsClient = require("./Methods")
 const RealmsServerList = require("../Classes/RealmsServerList");
 const RealmsServer = require("../Classes/RealmsServer");
-const PlayerInfo = require("../Classes/PlayerInfo");
-//const RealmsServer = require("../Classes/RealmsServer");
+const PendingInvitesList = require("../Classes/PendingInvitesList");
+const RealmsTemplatePaginatedList = require("../Classes/WorldTemplatePaginatedList");
 const RealmsNews = require("../Classes/RealmsNews");
 
 class Realms{
@@ -31,9 +31,24 @@ class Realms{
     get news(){
         return new RealmsNews(this.client.news());
     }
-    world(id){
-        return new RealmsServer(this.client.world(id),this.client);
+    /**
+     * 
+     * @param {String} type 
+     * The type of the Template `MINIGAME`, `ADVENTUREMAP`, `NORMAL`, `EXPERIENCE`, or `INSPIRATION`.
+     * @param {*} page 
+     * @param {*} size 
+     */
+    templates(type,page,size){
+        return new RealmsTemplatePaginatedList(this.client.templates(type,page,size));
     }
-    
+    /*world(id){
+        return new RealmsServer(this.client.world(id),this.client);
+    }*/
+    get invites(){
+        return new PendingInvitesList(this.client.invites(),this.client);
+    }
+    get activities(){
+        return this.client.activities();
+    }
 }
 module.exports = Realms;

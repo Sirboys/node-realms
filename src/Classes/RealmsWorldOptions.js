@@ -45,5 +45,6 @@ class RealmsWorldOptions extends ValueObject{
     setEmpty(empty) {
         this.empty = empty;
      }
+    
 }
 module.exports = RealmsWorldOptions;

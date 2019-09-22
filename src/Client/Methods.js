@@ -3,6 +3,7 @@ const Request = require('./Request');
 const RealmsServer = require("../Classes/RealmsServer");
 const PlayerInfo = require('../Classes/PlayerInfo');
 const RealmsDesctiptionDto = require("../Classes/RealmsDescriptionDto");
+const RealmsWorldResetDto = require("../Classes/RealmsWorldResetDto");
 //const WorldType = require("../Classes/Enums").Templates;
 
 
@@ -113,6 +114,13 @@ class RealmsClient{
     setMinigame(worldId,minigameId){
         return this.Request.put("/worlds/minigames/"+minigameId+"/"+worldId);
     }
+    /**
+     * 
+     * @param {Number} slot 
+     */
+    setSlot(worldId,slot){
+        return this.Request.put("/worlds/"+worldId+"/slot/"+slot);
+    }
     acceptInvite(invitationId){
         return this.Request.put("/invites/accept/"+invitationId);
     }
@@ -122,8 +130,11 @@ class RealmsClient{
     openRealm(worldId){
         return this.Request.put("/worlds/"+worldId+"/open");
     }
-    closeRealms(worldId){
+    closeRealm(worldId){
         return this.Request.put("/worlds/"+worldId+"/close");
+    }
+    uploadInfo(worldId){
+        return this.Request.put("/worlds/"+worldId+"/backups/upload")
     }
     //DELETE Requests
     kickPlayer(worldId,UUID){
@@ -141,10 +152,18 @@ class RealmsClient{
     }
     /**
      * 
+     * @param {Number} worldId 
+     * @param {RealmsDesctiptionDto} realmsworldresetdto 
+     */
+    resetWorld(worldId,realmsworldresetdto){
+        return this.Request.post("/worlds/"+worldId+"/reset",realmsworldresetdto.toString());
+    }
+    /**
+     * 
      * @param {RealmsDesctiptionDto} realmsdesctiptiondto
      */
     setDesctiption(realmsdesctiptiondto){
-        return this.Request.post("/worlds/"+realmsdesctiptiondto.world.id,realmsdesctiptiondto.toString());
+        return this.Request.post("/worlds/"+realmsdesctiptiondto.world.id,realmsdesctiptiondto+"");
     }
 
 }
