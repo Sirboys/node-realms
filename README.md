@@ -8,8 +8,8 @@ Realms Control module for Node.JS
 ```js
 const Realms = require("realms").Client;
 
-var realms = new Realms('token:$ACCESS_TOKEN:63a91ed9a480454696d8e000678f61e2',"1.14.4","Sirboys");
-//Replace $ACCESS_TOKEN to you access token. From launcher profiles or Mojang Auth API.
+var realms = new Realms("token:$ACCESS_TOKEN:$UUID","1.14.4","$NAME");
+//Replace $ACCESS_TOKEN to you access token and $UUID and $NAME. From launcher profiles or Mojang Auth API.
 //For more info see https://wiki.vg/Authentication
 
 if (realms.availability == true){
