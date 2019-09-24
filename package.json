@@ -1,6 +1,6 @@
 {
   "name": "minecraft-realms",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "realms control",
   "main": "index.js",
   "repository": {

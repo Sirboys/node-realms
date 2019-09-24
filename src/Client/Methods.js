@@ -162,7 +162,7 @@ class RealmsClient{
      * 
      * @param {RealmsDesctiptionDto} realmsdesctiptiondto
      */
-    setDesctiption(realmsdesctiptiondto){
+    setDescription(realmsdesctiptiondto){
         return this.Request.post("/worlds/"+realmsdesctiptiondto.world.id,realmsdesctiptiondto+"");
     }
 
