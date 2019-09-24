@@ -71,10 +71,8 @@ class RealmsServer extends ValueObject{
         this.players.sort(function(a, b){
             if (a.accepted != b.accepted){
                 return Number(b.accepted) - Number(a.accepted);
-            }else if (a.name.toLowerCase().charCodeAt(0) != b.name.toLowerCase().charCodeAt(0)){
-                return a.name.toLowerCase().charCodeAt(0) - b.name.toLowerCase().charCodeAt(0);
-            }else{
-                return a.name.toLowerCase().charCodeAt(1) - b.name.toLowerCase().charCodeAt(1);
+            } else {
+                return a.name.toLowerCase() < b.name.toLowerCase();
             }
         });
         return this;
