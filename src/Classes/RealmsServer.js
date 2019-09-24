@@ -134,7 +134,13 @@ class RealmsServer extends ValueObject{
             if (a.accepted != b.accepted){
                 return Number(b.accepted) - Number(a.accepted);
             } else {
-                return a.name.toLowerCase() < b.name.toLowerCase();
+                if (a.name.toLowerCase() > b.name.toLowerCase()){
+                    return 1;
+                }
+                if (a.name.toLowerCase() < b.name.toLowerCase()){
+                    return -1;
+                }
+                return 0;
             }
         });
         return this;
