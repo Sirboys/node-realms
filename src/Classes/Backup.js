@@ -1,5 +1,5 @@
 const ValueObject = require("./ValueObject");
-
+const FileSize = require("../Utils/FileSize");
 
 class Backup extends ValueObject{
     constructor(parsedJSON,world){
@@ -7,7 +7,7 @@ class Backup extends ValueObject{
         this.world = world;
         this.backupId = parsedJSON.backupId;
         this.lastModifiedDate = new Date(parsedJSON.lastModifiedDate);
-        this.size = parsedJSON.size;
+        this.size = FileSize.bytes(parsedJSON.size);
         this.metadata = {
             /**
              * @type {Number}
