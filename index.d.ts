@@ -160,7 +160,7 @@ declare module "minecraft-realms" {
     ownerUUID: string;
     properties: RealmsDescriptionDto;
     defaultPermission: string;
-    state: string;  //probably Status
+    state: Status;  //probably Status // Resolved
     daysLeft: number;
     expired: boolean;
     expiredTrial: boolean;
@@ -171,7 +171,7 @@ declare module "minecraft-realms" {
     minigameName: string;
     minigameId: number;
     minigameImage: string;
-    activeSlot: number; //probably SlotNumber
+    activeSlot: SlotNumber; //probably SlotNumber  // Resolved
     slots: Map<number, RealmsWorldOptions>;
     member: boolean;
     clubId: number;
