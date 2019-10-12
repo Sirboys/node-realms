@@ -34,7 +34,7 @@ declare module "minecraft-realms" {
      * @param page 
      * @param size 
      */
-    templates(type: string, page: number, size: number): RealmsTemplatePaginatedList;
+    templates(type: string, page: number, size: number): WorldTemplatePaginatedList;
     get invites(): PendingInvitesList;
     get activities(): any;
   }
