@@ -23,20 +23,20 @@ declare module "minecraft-realms" {
   export class Client {
     client: RealmsClient;
     constructor(accessToken: string, version: string, username: string);
-    get trial(): boolean;
-    get availability(): boolean;
-    get compatible(): "COMPATIBLE" | "OUTDATED" | "OTHER";
-    get invitesCount(): number;
-    get worlds(): RealmsServerList;
-    get news(): RealmsNews;
+    trial: boolean;
+    availability: boolean;
+    compatible: "COMPATIBLE" | "OUTDATED" | "OTHER";
+    invitesCount: number;
+    worlds: RealmsServerList;
+    news: RealmsNews;
     /**
      * @param type The type of the Template `MINIGAME`, `ADVENTUREMAP`, `NORMAL`, `EXPERIENCE`, or `INSPIRATION`.
      * @param page 
      * @param size 
      */
     templates(type: string, page: number, size: number): WorldTemplatePaginatedList;
-    get invites(): PendingInvitesList;
-    get activities(): any;
+    invites: PendingInvitesList;
+    activities: any;
   }
 
   export interface Metadata {
@@ -160,7 +160,7 @@ declare module "minecraft-realms" {
     ownerUUID: string;
     properties: RealmsDescriptionDto;
     defaultPermission: string;
-    state: Status;  //probably Status // Resolved
+    state: string;  //probably Status
     daysLeft: number;
     expired: boolean;
     expiredTrial: boolean;
@@ -171,7 +171,7 @@ declare module "minecraft-realms" {
     minigameName: string;
     minigameId: number;
     minigameImage: string;
-    activeSlot: SlotNumber; //probably SlotNumber  // Resolved
+    activeSlot: number; //probably SlotNumber
     slots: Map<number, RealmsWorldOptions>;
     member: boolean;
     clubId: number;
@@ -181,7 +181,7 @@ declare module "minecraft-realms" {
     invitePlayer(username: string): RealmsServer;
     getPlayerByUUID(uuid: string): PlayerInfo;
     getPlayerByName(name: string): PlayerInfo;
-    get joinCreditails(): RealmsServerAddress;
+    joinCreditails: RealmsServerAddress;
     changeSlot(slot: SlotNumber): RealmsServer;
     open(): boolean;
     close(): boolean;
@@ -257,7 +257,7 @@ declare module "minecraft-realms" {
     username: string;
     endpoint: string;
     constructor(token: string, uuid: string, version: string, username: string);
-    get cookieHeader(): string;
+    cookieHeader: string;
     get(url: string): string;
     post(url: string, payload: any): string;
     put(url: string): string;
