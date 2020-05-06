@@ -108,8 +108,8 @@ class RealmsServer extends ValueObject{
             this.slots = parsedJSON.slots;
             if (parsedJSON.slots){
                 let slots = new Map();
-                for (let i=1;i<=3;i++){
-                    slots.set(i,RealmsWorldOptions.parse(parsedJSON.slots[i-1].options));
+                for (let i=0;i<parsedJSON.slots.length;i++){
+                    slots.set(i,RealmsWorldOptions.parse(parsedJSON.slots[i].options));
                 }
                 this.slots = slots
             }
@@ -122,7 +122,7 @@ class RealmsServer extends ValueObject{
              */
             this.clubId = parsedJSON.clubId;
         }catch(e){
-            console.error("Could parse RealmsServer: "+ e);
+            console.error("Couldn't parse RealmsServer: "+ e);
         }
     }
     /**
@@ -157,7 +157,7 @@ class RealmsServer extends ValueObject{
      * @returns {RealmsServer} Updated Realms server with new Player if existed
      */
     invitePlayer(username){
-        return new RealmsServer(this.client.invitePlayer(this.world.id,username),this.client);
+        return new RealmsServer(this.client.invitePlayer(this.id,username),this.client);
     }
     /**
      * 
@@ -187,7 +187,7 @@ class RealmsServer extends ValueObject{
      * @param {number} slot 
      */
     changeSlot(slot){
-        if (slot == this.activeSlot){
+        if (slot == this.activeSlot && !this.minigameId){
             console.error("Slot is already set");
         }else{
             this.client.setSlot(this.id,slot);
