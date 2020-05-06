@@ -157,7 +157,7 @@ class RealmsServer extends ValueObject{
      * @returns {RealmsServer} Updated Realms server with new Player if existed
      */
     invitePlayer(username){
-        return new RealmsServer(this.client.invitePlayer(this.world.id,username),this.client);
+        return new RealmsServer(this.client.invitePlayer(this.id,username),this.client);
     }
     /**
      * 
