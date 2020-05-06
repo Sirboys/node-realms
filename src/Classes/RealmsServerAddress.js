@@ -4,7 +4,7 @@ class RealmsServerAddress extends ValueObject{
     constructor(unparsedJSON){
         super();
             try {
-                let parsedJSON = JSON.parse(uparsedJSON);
+                let parsedJSON = JSON.parse(unparsedJSON);
                 this.address = parsedJSON.address || null;
                 this.resourcePackUrl = parsedJSON.resourcePackUrl || null;
                 this.resourcePackHash = parsedJSON.resourcePackHash || null;

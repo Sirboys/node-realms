@@ -11,10 +11,9 @@ const RealmsWorldResetDto = require("./RealmsWorldResetDto");
 
 class RealmsServer extends ValueObject{
     /**
-     * 
      * @param {String} unparsedJSON 
+     * @param {Client} client
      */
-    
     constructor(unparsedJSON,client){
         super();
         try{
@@ -22,19 +21,57 @@ class RealmsServer extends ValueObject{
              * @type {Client}
              */
             this.client = client;
-
+            /**
+             * @type {JSON}
+             */
             let parsedJSON = JSON.parse(unparsedJSON);
+            /**
+             * @type {Number}
+             */
             this.id = parsedJSON.id;
+            /**
+             * @type {Number}
+             */
             this.remoteSubscriptionId = parsedJSON.remoteSubscriptionId;
+            /**
+             * @type {String}
+             */
             this.owner = parsedJSON.owner;
+            /**
+             * @type {String}
+             */
             this.ownerUUID = parsedJSON.ownerUUID;
+            /**
+             * @type {RealmsDescriptionDto}
+             */
             this.properties = new RealmsDescriptionDto(parsedJSON.name,parsedJSON.motd,this);
+            /**
+             * @type {String}
+             */
             this.defaultPermission = parsedJSON.defaultPermission;
+            /**
+             * @type {String}
+             */
             this.state = parsedJSON.state;
+            /**
+             * @type {Number}
+             */
             this.daysLeft = parsedJSON.daysLeft;
+            /**
+             * @type {Boolean}
+             */
             this.expired = parsedJSON.expired;
+            /**
+             * @type {Boolean}
+             */
             this.expiredTrial = parsedJSON.expiredTrial;
+            /**
+             * @type {Boolean}
+             */
             this.gracePeriod = parsedJSON.gracePeriod;
+            /**
+             * @type {String}
+             */
             this.worldType = parsedJSON.worldType;
             /**
             * @type {PlayerInfo[]}
@@ -45,10 +82,25 @@ class RealmsServer extends ValueObject{
                     this.players.push(new PlayerInfo(player,this));
                 });
             }
+            /**
+             * @type {Number}
+             */
             this.maxPlayers = parsedJSON.maxPlayers;
+            /**
+             * @type {String}
+             */
             this.minigameName = parsedJSON.minigameName;
+            /**
+             * @type {Number}
+             */
             this.minigameId = parsedJSON.minigameId;
+            /**
+             * @type {String}
+             */
             this.minigameImage = parsedJSON.minigameImage;
+            /**
+             * @type {Number}
+             */
             this.activeSlot = parsedJSON.activeSlot;
             /**
              * @type {Map<Number,RealmsWorldOptions>}
@@ -61,35 +113,70 @@ class RealmsServer extends ValueObject{
                 }
                 this.slots = slots
             }
+            /**
+             * @type {Boolean}
+             */
             this.member = parsedJSON.member;
+            /**
+             * @type {Number}
+             */
             this.clubId = parsedJSON.clubId;
         }catch(e){
             console.error("Could parse RealmsServer: "+ e);
         }
     }
+    /**
+     * Sorts players by alphabetic and Invite accepts
+     * @returns {RealmsServer}
+     */
     sortPlayers(){
         this.players.sort(function(a, b){
             if (a.accepted != b.accepted){
                 return Number(b.accepted) - Number(a.accepted);
             } else {
-                return a.name.toLowerCase() < b.name.toLowerCase();
+                if (a.name.toLowerCase() > b.name.toLowerCase()){
+                    return 1;
+                }
+                if (a.name.toLowerCase() < b.name.toLowerCase()){
+                    return -1;
+                }
+                return 0;
             }
         });
         return this;
     }
+    /**
+     * @returns {RealmsServer} detail information (Only if you owner)
+     */
     detailInformation(){
         return new RealmsServer(this.client.world(this.id),this.client);
     }
+    /**
+     * 
+     * @param {String} username Player username for invite
+     * @returns {RealmsServer} Updated Realms server with new Player if existed
+     */
     invitePlayer(username){
         return new RealmsServer(this.client.invitePlayer(this.world.id,username),this.client);
     }
+    /**
+     * 
+     * @param {String} uuid Search player by UUID in RealmsServer
+     * @returns {PlayerInfo} 
+     */
     getPlayerByUUID(uuid){
         return this.players.find(playerInfo => playerInfo.uuid.toLowerCase() == uuid.toLowerCase());
     }
+    /**
+     * 
+     * @param {String} name Search player by Name in RealmsServer
+     * @returns {PlayerInfo}
+     */
     getPlayerByName(name){
         return this.players.find(playerInfo => playerInfo.name.toLowerCase() == name.toLowerCase());
     }
     /**
+     * 
      * @returns {RealmsServerAddress}
      */
     get joinCreditails(){
