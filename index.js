@@ -5,7 +5,7 @@ module.exports = {
   Enums: require('./src/Classes/Enums'),
   Ops: require('./src/Classes/Ops'),
   PendingInvite: require('./src/Classes/PendingInvite'),
-  PendingInviteList: require('./src/Classes/PendingInviteList'),
+  PendingInviteList: require('./src/Classes/PendingInvitesList'),
   PlayerInfo: require('./src/Classes/PlayerInfo'),
   RealmsDescriptionDto: require('./src/Classes/RealmsDescriptionDto'),
   RealmsNews: require('./src/Classes/RealmsNews'),
